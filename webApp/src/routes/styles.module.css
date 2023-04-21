@@ -1,0 +1,16 @@
+.routes {
+  width: 100vw;
+  position: relative;
+}
+
+header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+}
+
+footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
