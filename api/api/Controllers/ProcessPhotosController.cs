@@ -15,12 +15,12 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        public string ProcessPhotos([FromBody] ProcessPostDto dto)
+        public string ProcessPhotos([FromForm]  ProcessPostDto dto)
         {
 
             this._logger.Log(LogLevel.Trace, "processing...");
 
-            return dto.Method.ToString();
+            return "Method: " + dto.Method.ToString() + "\nPhotos: " + dto.Photos.First().FileName;
         }
     }
 }
