@@ -1,10 +1,11 @@
+using api.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
     [ApiController]
     [Route("process")]
-    public class ProcessPhotosController : ControllerBase
+    public class ProcessPhotosController
     {
         private readonly ILogger<ProcessPhotosController> _logger;
 
@@ -14,11 +15,12 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        public string ProcessPhotos()
+        public string ProcessPhotos([FromBody] ProcessPostDto dto)
         {
+
             this._logger.Log(LogLevel.Trace, "processing...");
 
-            return "In development";
+            return dto.Method.ToString();
         }
     }
 }
