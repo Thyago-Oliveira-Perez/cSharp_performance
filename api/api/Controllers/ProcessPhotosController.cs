@@ -1,4 +1,5 @@
 using api.Dto;
+using api.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
@@ -8,10 +9,12 @@ namespace api.Controllers
     public class ProcessPhotosController
     {
         private readonly ILogger<ProcessPhotosController> _logger;
+        private readonly ProcessPhotosService _processPhotosService;
 
-        public ProcessPhotosController(ILogger<ProcessPhotosController> logger)
+        public ProcessPhotosController(ILogger<ProcessPhotosController> logger, ProcessPhotosService processPhotosService)
         {
             _logger = logger;
+            _processPhotosService = processPhotosService;
         }
 
         [HttpPost]
@@ -20,7 +23,7 @@ namespace api.Controllers
 
             this._logger.Log(LogLevel.Trace, "processing...");
 
-            return "Method: " + dto.Method.ToString() + "\nPhotos: " + dto.Photos.First().FileName;
+            return _processPhotosService.ProcessPhotos(dto);
         }
     }
 }
