@@ -2,8 +2,8 @@
 {
     public enum ProcessType
     {
-        Paralel,
         Assinc,
+        Paralel,
         Conc,
     }
 }

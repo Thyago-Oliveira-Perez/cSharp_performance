@@ -1,9 +1,7 @@
 ﻿using api.Dto;
 using api.Enums;
-using ImageProcessor;
-using ImageProcessor.Imaging;
 using System.Drawing;
-using System.IO;
+using System.Drawing.Imaging;
 
 namespace api.Services
 {
@@ -15,8 +13,8 @@ namespace api.Services
 
             ProcessType type = dto.Method;
 
-            if (type == ProcessType.Assinc) return this.Paralel(dto.Photos);
-            if (type == ProcessType.Paralel) return this.Assinc(dto.Photos);
+            if (type == ProcessType.Assinc) return this.Assinc(dto.Photos);
+            if (type == ProcessType.Paralel) return this.Paralel(dto.Photos);
             if (type == ProcessType.Conc) return this.Conc(dto.Photos);
 
             return "Method doesn't exist";
@@ -34,26 +32,10 @@ namespace api.Services
 
             foreach (IFormFile photo in photos)
             {
-                Task.Run(async () =>
-                {
-                    using (var memoryStream = new MemoryStream())
-                    {
-                        if (!Directory.Exists(dirPath))
-                        {
-                            Directory.CreateDirectory(dirPath);
-                        }
-
-                        await photo.CopyToAsync(memoryStream);
-
-                        string savePath = Path.Combine(dirPath, photo.FileName);
-
-                        using (var fileStream = new FileStream(savePath, FileMode.Create))
-                        {
-                            memoryStream.Seek(0, SeekOrigin.Begin);
-                            await memoryStream.CopyToAsync(fileStream);
-                        }
-                    }
-                });
+                //Task.Run(async () =>
+                //{
+                    HandlePhotos(photo, dirPath);
+                //});
             }
 
             return message;
@@ -63,5 +45,40 @@ namespace api.Services
         {
             return "Conc: " + photos.First().FileName;
         }
+
+        #region HELPERS
+
+        private static void HandlePhotos(IFormFile photo, string dirPath)
+        {
+
+            VerifyDirectory(dirPath);
+
+            using (var stream = photo.OpenReadStream()) 
+            {
+                using (var memoryStream = new MemoryStream()) 
+                {
+                    var img = Image.FromStream(stream);
+
+                    var height = (300 * img.Height) / img.Width;
+                    var thumbnail = img.GetThumbnailImage(300, height, null, IntPtr.Zero);
+
+                    string savePath = Path.Combine(dirPath, photo.FileName);
+
+                    using (var fileStream = new FileStream(savePath, FileMode.Create))
+                    {
+                        thumbnail.Save(fileStream, ImageFormat.Jpeg);
+                    }
+                }
+            }
+        }
+
+        private static void VerifyDirectory(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+        #endregion
     }
 }
