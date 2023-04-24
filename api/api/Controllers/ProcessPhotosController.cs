@@ -18,7 +18,7 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        public string ProcessPhotos([FromForm]  ProcessPostDto dto)
+        public ActionResult<string> ProcessPhotos([FromForm]  ProcessPostDto dto)
         {
 
             this._logger.Log(LogLevel.Trace, "processing...");

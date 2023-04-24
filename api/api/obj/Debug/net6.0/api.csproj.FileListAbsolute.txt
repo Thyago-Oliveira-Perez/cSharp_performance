@@ -30,3 +30,8 @@ C:\Users\Thp\workspace\cSharp_performance\api\api\obj\Debug\net6.0\refint\api.dl
 C:\Users\Thp\workspace\cSharp_performance\api\api\obj\Debug\net6.0\api.pdb
 C:\Users\Thp\workspace\cSharp_performance\api\api\obj\Debug\net6.0\api.genruntimeconfig.cache
 C:\Users\Thp\workspace\cSharp_performance\api\api\obj\Debug\net6.0\ref\api.dll
+C:\Users\Thp\workspace\cSharp_performance\api\api\bin\Debug\net6.0\ImageProcessor.dll
+C:\Users\Thp\workspace\cSharp_performance\api\api\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Thp\workspace\cSharp_performance\api\api\bin\Debug\net6.0\System.Drawing.Common.dll
+C:\Users\Thp\workspace\cSharp_performance\api\api\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Thp\workspace\cSharp_performance\api\api\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
