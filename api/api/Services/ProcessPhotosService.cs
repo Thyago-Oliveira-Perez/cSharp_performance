@@ -13,7 +13,12 @@ namespace api.Services
 
             ProcessType type = dto.Method;
 
-            if (type == ProcessType.Assinc) return this.Assinc(dto.Photos);
+            if (type == ProcessType.Assinc)
+            {
+                string message = "Processing with Assinc method.";
+                Assinc(dto.Photos);
+                return message;
+            }
             if (type == ProcessType.Paralel) return this.Paralel(dto.Photos);
             if (type == ProcessType.Conc) return this.Conc(dto.Photos);
 
@@ -25,20 +30,22 @@ namespace api.Services
             return "Paralel: " + photos.First().FileName;
         }
 
-        private string Assinc(List<IFormFile> photos)
+        private static async void Assinc(List<IFormFile> photos)
         {
-            string dirPath = "../AssincPhotos/";
-            string message = "Processing with Assinc method.";
+            string dirPath = "../Assinc_Photos/";
+            
+            List<Task> tasks = new List<Task>();
 
             foreach (IFormFile photo in photos)
             {
-                //Task.Run(async () =>
-                //{
+                Task task = Task.Run(async () =>
+                {
                     HandlePhotos(photo, dirPath);
-                //});
+                });
+                tasks.Add(task);
             }
 
-            return message;
+            await Task.WhenAll(tasks);
         }
 
         private string Conc(List<IFormFile> photos)
@@ -57,16 +64,20 @@ namespace api.Services
             {
                 using (var memoryStream = new MemoryStream()) 
                 {
-                    var img = Image.FromStream(stream);
+                    stream.CopyTo(memoryStream);
+                    memoryStream.Seek(0, SeekOrigin.Begin);
 
-                    var height = (300 * img.Height) / img.Width;
-                    var thumbnail = img.GetThumbnailImage(300, height, null, IntPtr.Zero);
-
-                    string savePath = Path.Combine(dirPath, photo.FileName);
-
-                    using (var fileStream = new FileStream(savePath, FileMode.Create))
+                    using (var img = Image.FromStream(memoryStream))
                     {
-                        thumbnail.Save(fileStream, ImageFormat.Jpeg);
+                        var height = (300 * img.Height) / img.Width;
+                        var thumbnail = img.GetThumbnailImage(300, height, null, IntPtr.Zero);
+
+                        string savePath = Path.Combine(dirPath, photo.FileName);
+
+                        using (var fileStream = new FileStream(savePath, FileMode.Create))
+                        {
+                            thumbnail.Save(fileStream, ImageFormat.Jpeg);
+                        }
                     }
                 }
             }
