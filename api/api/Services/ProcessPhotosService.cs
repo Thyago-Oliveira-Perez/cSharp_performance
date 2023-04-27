@@ -60,26 +60,33 @@ namespace api.Services
 
             VerifyDirectory(dirPath);
 
-            using (var stream = photo.OpenReadStream()) 
+            try
             {
-                using (var memoryStream = new MemoryStream()) 
+                using (var stream = photo.OpenReadStream()) 
                 {
-                    stream.CopyTo(memoryStream);
-                    memoryStream.Seek(0, SeekOrigin.Begin);
-
-                    using (var img = Image.FromStream(memoryStream))
+                    using (var memoryStream = new MemoryStream()) 
                     {
-                        var height = (300 * img.Height) / img.Width;
-                        var thumbnail = img.GetThumbnailImage(300, height, null, IntPtr.Zero);
+                        stream.CopyTo(memoryStream);
+                        memoryStream.Seek(0, SeekOrigin.Begin);
 
-                        string savePath = Path.Combine(dirPath, photo.FileName);
-
-                        using (var fileStream = new FileStream(savePath, FileMode.Create))
+                        using (var img = Image.FromStream(memoryStream))
                         {
-                            thumbnail.Save(fileStream, ImageFormat.Jpeg);
+                            var height = (300 * img.Height) / img.Width;
+                            var thumbnail = img.GetThumbnailImage(300, height, null, IntPtr.Zero);
+
+                            string savePath = Path.Combine(dirPath, photo.FileName);
+
+                            using (var fileStream = new FileStream(savePath, FileMode.Create))
+                            {
+                                thumbnail.Save(fileStream, ImageFormat.Jpeg);
+                            }
                         }
                     }
                 }
+            } 
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
             }
         }
 
