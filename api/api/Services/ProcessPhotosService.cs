@@ -8,37 +8,29 @@ namespace api.Services
     public class ProcessPhotosService
     {
 
-        public string ProcessPhotos(ProcessPostDto dto)
+        public Task ProcessPhotos(ProcessPostDto dto)
         {
 
             ProcessType type = dto.Method;
-
-            if (type == ProcessType.Assinc)
-            {
-                string message = "Processing with Assinc method.";
-                Assinc(dto.Photos);
-                return message;
-            }
-            if (type == ProcessType.Paralel) return this.Paralel(dto.Photos);
-            if (type == ProcessType.Conc) return this.Conc(dto.Photos);
-
-            return "Method doesn't exist";
+            
+            //if (type == ProcessType.Paralel) return Paralel(dto.Photos);
+            //if (type == ProcessType.Conc) return Conc(dto.Photos);
+            
+            /*
+             * default return is Assinc
+             */
+            return Assinc(dto.Photos);
         }
 
-        private string Paralel(List<IFormFile> photos)
-        {
-            return "Paralel: " + photos.First().FileName;
-        }
-
-        private static async void Assinc(List<IFormFile> photos)
+        private static async Task Assinc(List<IFormFile> photos)
         {
             string dirPath = "../Assinc_Photos/";
             
-            List<Task> tasks = new List<Task>();
+            List<Task> tasks = new();
 
             foreach (IFormFile photo in photos)
             {
-                Task task = Task.Run(async () =>
+                Task task = Task.Run(() =>
                 {
                     HandlePhotos(photo, dirPath);
                 });
@@ -48,10 +40,15 @@ namespace api.Services
             await Task.WhenAll(tasks);
         }
 
-        private string Conc(List<IFormFile> photos)
-        {
-            return "Conc: " + photos.First().FileName;
-        }
+        //private static Task Paralel(List<IFormFile> photos)
+        //{
+        //    return "Paralel: " + photos.First().FileName;
+        //}
+
+        //private static Task Conc(List<IFormFile> photos)
+        //{
+        //    return "Conc: " + photos.First().FileName;
+        //}
 
         #region HELPERS
 
@@ -78,7 +75,7 @@ namespace api.Services
 
                             using (var fileStream = new FileStream(savePath, FileMode.Create))
                             {
-                                thumbnail.Save(fileStream, ImageFormat.Jpeg);
+                                thumbnail.Save(fileStream, ImageFormat.Png);
                             }
                         }
                     }
@@ -86,7 +83,7 @@ namespace api.Services
             } 
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.ToString());
             }
         }
 
