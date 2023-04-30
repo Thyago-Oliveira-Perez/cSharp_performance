@@ -13,7 +13,7 @@ namespace api.Services
 
             ProcessType type = dto.Method;
             
-            //if (type == ProcessType.Paralel) return Paralel(dto.Photos);
+            if (type == ProcessType.Paralel) return Paralel(dto.Photos);
             //if (type == ProcessType.Conc) return Conc(dto.Photos);
             
             /*
@@ -24,7 +24,7 @@ namespace api.Services
 
         private static async Task Assinc(List<IFormFile> photos)
         {
-            string dirPath = "../Assinc_Photos/";
+            string dirPath = "../assinc_photos/";
             
             List<Task> tasks = new();
 
@@ -40,10 +40,22 @@ namespace api.Services
             await Task.WhenAll(tasks);
         }
 
-        //private static Task Paralel(List<IFormFile> photos)
-        //{
-        //    return "Paralel: " + photos.First().FileName;
-        //}
+        private static async Task Paralel(List<IFormFile> photos)
+        {
+            string dirPath = "../paralel_photos/";
+            List<Task> tasks = new();
+
+            Parallel.ForEach(photos, (photo) =>
+            {
+                Task task = Task.Run(() =>
+                {
+                    HandlePhotos(photo, dirPath);
+                });
+                tasks.Add(task);
+            });
+
+            await Task.WhenAll(tasks);
+        }
 
         //private static Task Conc(List<IFormFile> photos)
         //{
