@@ -1,0 +1,31 @@
+version: '3.3'
+
+# networks:
+#   process:
+#     driver: bridge
+#     ipam:
+#       config:
+#         - subnet: 172.24.0.0/16
+
+services:
+  # app:
+  #   container_name:
+  #   build:
+  #     context: ./webApp
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - '3000:3000'
+  #   networks:
+  #     images-process:
+  #       ipv4_address: 172.24.0.2
+
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    ports:
+      - '5000:5000'
+    # networks:
+    #   process:
+    #     ipv4_address: 172.24.0.3
