@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "VNIOKCh/aP2h7yaZ9IMXlxyDWyIHzOgThPDuvmzcOgzRVEpdf3MrruR7MMfSeTnggwZU33Sw9RfX9ZzZIKmH3w==",
+  "dgSpecHash": "cVE/7L9ybdoVIl7/K26r1ThSO/T84Y72/XIVav98ASe2JroDBmdXbUOgTJ8xy0gjrO9lqvIsbpxXO3Ywl25gCQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Thp\\workspace\\cSharp_performance\\api\\api\\api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Thp\\.nuget\\packages\\imageprocessor\\2.9.1\\imageprocessor.2.9.1.nupkg.sha512",
     "C:\\Users\\Thp\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\Thp\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Thp\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.17.2\\microsoft.visualstudio.azure.containers.tools.targets.1.17.2.nupkg.sha512",
     "C:\\Users\\Thp\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
     "C:\\Users\\Thp\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
     "C:\\Users\\Thp\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
