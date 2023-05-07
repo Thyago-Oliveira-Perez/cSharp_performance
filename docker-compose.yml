@@ -20,12 +20,12 @@ services:
   #       ipv4_address: 172.24.0.2
 
   api:
-    container_name: api
+    container_name: performance
+    image: api-performance
     build:
-      context: .
-      dockerfile: api/Dockerfile
+      dockerfile: backend/api/Dockerfile
     ports:
-      - '5000:5000'
+      - '3500:80'
     # networks:
     #   process:
     #     ipv4_address: 172.24.0.3
