@@ -517,11 +517,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Thp\\workspace\\cSharp_performance\\api\\api\\api.csproj",
+      "projectUniqueName": "C:\\Users\\Thp\\workspace\\cSharp_performance\\backend\\api\\api.csproj",
       "projectName": "api",
-      "projectPath": "C:\\Users\\Thp\\workspace\\cSharp_performance\\api\\api\\api.csproj",
+      "projectPath": "C:\\Users\\Thp\\workspace\\cSharp_performance\\backend\\api\\api.csproj",
       "packagesPath": "C:\\Users\\Thp\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Thp\\workspace\\cSharp_performance\\api\\api\\obj\\",
+      "outputPath": "C:\\Users\\Thp\\workspace\\cSharp_performance\\backend\\api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Thp\\AppData\\Roaming\\NuGet\\NuGet.Config",
